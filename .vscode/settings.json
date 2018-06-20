@@ -1,0 +1,27 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/billyin/ros/devel/lib/python2.7/dist-packages",
+        "/opt/ros/jade/lib/python2.7/dist-packages"
+    ],
+    "files.associations": {
+        "*.txt": "makefile",
+        "geometry": "cpp",
+        "cctype": "cpp",
+        "cmath": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "strstream": "cpp",
+        "initializer_list": "cpp",
+        "iosfwd": "cpp",
+        "cinttypes": "cpp",
+        "cstdint": "cpp",
+        "typeindex": "cpp",
+        "dense": "cpp",
+        "sparse": "cpp"
+    }
+}

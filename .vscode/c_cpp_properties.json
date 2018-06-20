@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/billyin/ros/devel/include",
+                    "/opt/ros/jade/include",
+                    "/home/billyin/catkin_ws/src/tx_auto/include",
+                    "/usr/include"
+                ]
+            },
+            "includePath": [
+                "/home/billyin/ros/devel/include",
+                "/opt/ros/jade/include",
+                "/home/billyin/catkin_ws/src/tx_auto/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
