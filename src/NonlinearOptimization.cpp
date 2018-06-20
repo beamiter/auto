@@ -82,9 +82,9 @@ void gaussNewton(const VectorXd& input, const VectorXd& output, VectorXd& params
         double sum = 0;
         sum = Func(obj);
 
-        cout << "Iterator index: " << iterCnt << endl;
-        cout << "parameter: " << endl << params << endl;
-        cout << "error sum: " << endl << sum << endl << endl;
+        // cout << "Iterator index: " << iterCnt << endl;
+        // cout << "parameter: " << endl << params << endl;
+        // cout << "error sum: " << endl << sum << endl << endl;
 
         if (fabs(sum - last_sum) <= 1e-12)
             break;
@@ -162,11 +162,11 @@ void levenMar(const VectorXd& input, const VectorXd& output, VectorXd& params)
             break;
         }
 
-        cout << "A: " << endl << A << endl; 
+        // cout << "A: " << endl << A << endl; 
 
         VectorXd step = (A + u * MatrixXd::Identity(paraNum, paraNum)).inverse() * gradient; //negtive Hlm.
 
-        cout << "step: " << endl << step << endl;
+        // cout << "step: " << endl << step << endl;
 
         if( step.norm() <= eps2*(params.norm() + eps2) )
         {
@@ -200,10 +200,10 @@ void levenMar(const VectorXd& input, const VectorXd& output, VectorXd& params)
             v = v * 2;
         }
 
-        cout << "u = " << u << " v = " << v << endl;
+        // cout << "u = " << u << " v = " << v << endl;
 
         iterCnt++;
-        cout << "Iterator " << iterCnt << " times, result is :" << endl << endl;
+        // cout << "Iterator " << iterCnt << " times, result is :" << endl << endl;
     }
 }
 
@@ -274,7 +274,7 @@ void dogLeg(const VectorXd& input, const VectorXd& output, VectorXd& params)
 
         }
 
-        cout << "dog-leg: " << endl << dog_leg << endl;
+        // cout << "dog-leg: " << endl << dog_leg << endl;
 
         if(dog_leg.norm() <= eps2 *(params.norm() + eps2))
         {
@@ -285,7 +285,7 @@ void dogLeg(const VectorXd& input, const VectorXd& output, VectorXd& params)
         VectorXd new_params(params.rows());
         new_params = params + dog_leg;
 
-        cout << "new parameter is: " << endl << new_params << endl;
+        // cout << "new parameter is: " << endl << new_params << endl;
 
         //compute f(x)
         obj = objF(input,output,params);
@@ -332,10 +332,10 @@ void dogLeg(const VectorXd& input, const VectorXd& output, VectorXd& params)
             }
         }
 
-        cout << "roi: " << roi << " dog-leg norm: " << dog_leg.norm() << endl;
-        cout << "radius: " << radius << endl;
+        // cout << "roi: " << roi << " dog-leg norm: " << dog_leg.norm() << endl;
+        // cout << "radius: " << radius << endl;
 
         iterCnt++;
-        cout << "Iterator " << iterCnt << " times" << endl << endl;
+        // cout << "Iterator " << iterCnt << " times" << endl << endl;
     }
 }

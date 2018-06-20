@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     int num_params = 3;
 
     //generate random data using these parameter
-    int total_data = 10;
+    int total_data = 100;
 
     VectorXd input(total_data);
     VectorXd output(total_data);
