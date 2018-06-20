@@ -6,15 +6,15 @@
 
 double func(const VectorXd& input, const VectorXd& output, const VectorXd& params, double objIndex)
 {
-    // obj = A * sin(Bx) + C * cos(D*x) - F
     double x1 = params(0);
     double x2 = params(1);
     double x3 = params(2);
+    double x4 = params(3);
 
     double t = input(objIndex);
     double f = output(objIndex);
 
-    return x1 * t * t * t + x2 * t * t + x3 * t - f;
+    return x1 * t * t * t + x2 * t * t + x3 * t + x4 - f;
 }
 
 //return vector make up of func() element.
@@ -187,7 +187,7 @@ void levenMar(const VectorXd& input, const VectorXd& output, VectorXd& params)
         double deltaL = linerDeltaL(-1 * step, gradient, u);
 
         double roi = deltaF / deltaL;
-        cout << "roi is : " << roi << endl;
+        // cout << "roi is : " << roi << endl;
         if(roi > 0)
         {
             params = paramsNew;

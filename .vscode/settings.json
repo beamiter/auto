@@ -22,6 +22,8 @@
         "cstdint": "cpp",
         "typeindex": "cpp",
         "dense": "cpp",
-        "sparse": "cpp"
+        "sparse": "cpp",
+        "core": "cpp",
+        "algorithm": "cpp"
     }
 }

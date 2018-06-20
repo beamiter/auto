@@ -13,7 +13,19 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   tf
+  cmake_modules
 )
+
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
+message(STATUS "${CMAKE_MODULE_PATH}")
+# find_package(Boost REQUIRED COMPONENTS system thread graph)
+# find_package(SUITESPARSE REQUIRED)
+
+find_package(G2O REQUIRED)
+
+# set(OpenCV_DIR /usr/local/share/OpenCV)
+# message(STATUS " version: ${OpenCV_VERSION}")
+find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -121,6 +133,7 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -202,3 +215,6 @@ include_directories(
 
 add_executable(main src/main.cpp src/NonlinearOptimization.cpp)
 target_link_libraries(main ${catkin_LIBRARIES})
+
+add_executable(g2o src/g2oOptimize.cpp)
+target_link_libraries(g2o ${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})

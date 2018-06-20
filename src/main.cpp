@@ -46,27 +46,26 @@ int main(int argc, char **argv)
         }
     }
 
-    std::cout << "time cost: " << (ros::Time::now() - prev).toNSec() << std::endl;
+    std::cout << "time cost: " << (ros::Time::now() - prev).toSec() << std::endl;
 
-    // obj = A * sin(Bx) + C * cos(D*x) - F
     //there are 4 parameter: A, B, C, D.
-    int num_params = 3;
+    int num_params = 4;
 
     //generate random data using these parameter
-    int total_data = 100;
+    int total_data = 10;
 
     VectorXd input(total_data);
     VectorXd output(total_data);
 
-    double A = 1, B = 2, C = 1;
+    double A = 1, B = 2, C = 1, D = 1;
     //load observation data
     for (int i = 0; i < total_data; i++)
     {
         //generate a random variable [-10 10]
         double x = 20.0 * ((random() % 1000) / 1000.0) - 10.0;
         double deltaY = 2.0 * (random() % 1000) / 1000.0 - 1.0;
-        double y = A * x * x * x + B * x * x + C * x + 1;
-        // double y = A * x * x * x + B * x * x + C * x + 1 + deltaY;
+        double y = A * x * x * x + B * x * x + C * x + D;
+        // double y = A * x * x * x + B * x * x + C * x + D + deltaY;
 
         input(i) = x;
         output(i) = y;
@@ -75,14 +74,20 @@ int main(int argc, char **argv)
     //gauss the parameters
     VectorXd params_gaussNewton(num_params);
     //init gauss
-    params_gaussNewton << 1.6, 1.4, 1.2;
+    params_gaussNewton << 0., 0., 0., 0.;
 
     VectorXd params_levenMar = params_gaussNewton;
     VectorXd params_dogLeg = params_gaussNewton;
 
+    prev = ros::Time::now();   
     gaussNewton(input, output, params_gaussNewton);
+    std::cout << "time cost: " << (ros::Time::now() - prev).toSec() << std::endl;
+    prev = ros::Time::now();
     levenMar(input, output, params_levenMar);
+    std::cout << "time cost: " << (ros::Time::now() - prev).toSec() << std::endl;
+    prev = ros::Time::now();
     dogLeg(input, output, params_dogLeg);
+    std::cout << "time cost: " << (ros::Time::now() - prev).toSec() << std::endl;
 
     cout << "gauss newton parameter: " << endl
          << params_gaussNewton << endl
