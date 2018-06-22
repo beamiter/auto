@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "points_and_lines");
+    ros::init(argc, argv, "main");
     ros::NodeHandle n;
     ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
 
@@ -57,18 +57,21 @@ int main(int argc, char **argv)
     VectorXd input(total_data);
     VectorXd output(total_data);
 
-    double A = 1, B = 2, C = 1, D = 1;
+    double A = 1, B = 3, C = 3, D = 1;
     //load observation data
+
+    raw_path.clear();
     for (int i = 0; i < total_data; i++)
     {
         //generate a random variable [-10 10]
-        double x = 20.0 * ((random() % 1000) / 1000.0) - 10.0;
-        double deltaY = 2.0 * (random() % 1000) / 1000.0 - 1.0;
-        double y = A * x * x * x + B * x * x + C * x + D;
-        // double y = A * x * x * x + B * x * x + C * x + D + deltaY;
+        double x = i * 0.4 - 2.0;
+        double deltaY = 1.0 * (random() % 1000) / 1000.0 - 0.5;
+        // double y = A * x * x * x + B * x * x + C * x + D;
+        double y = A * x * x * x + B * x * x + C * x + D + deltaY;
 
         input(i) = x;
         output(i) = y;
+        raw_path.push_back(std::make_pair(x, y));
     }
 
     //gauss the parameters
@@ -101,6 +104,18 @@ int main(int argc, char **argv)
          << params_dogLeg << endl
          << endl
          << endl;
+
+    final_path.clear();
+    for (int i = -20; i < 20; i++)
+    {
+        //generate a random variable [-10 10]
+        double x = i * 0.1;
+        // double y = A * x * x * x + B * x * x + C * x + D;
+        double y = params_dogLeg[0] * x * x * x + params_dogLeg[1] * x * x + params_dogLeg[2] * x + params_dogLeg[3];
+
+        final_path.push_back(std::make_pair(x, y));
+    }
+
 
     while (ros::ok())
     {
@@ -145,8 +160,6 @@ int main(int argc, char **argv)
             geometry_msgs::Point p;
             p.x = raw_path[i].first;
             p.y = raw_path[i].second;
-            ;
-            p.z = 5;
             points.points.push_back(p);
         }
 
@@ -155,9 +168,6 @@ int main(int argc, char **argv)
             geometry_msgs::Point p;
             p.x = final_path[i].first;
             p.y = final_path[i].second;
-            ;
-            p.z = 5;
-
             line_strip.points.push_back(p);
             // The line list needs two points for each line
             line_list.points.push_back(p);
@@ -165,7 +175,7 @@ int main(int argc, char **argv)
 
         marker_pub.publish(points);
         marker_pub.publish(line_strip);
-        marker_pub.publish(line_list);
+        // marker_pub.publish(line_list);
 
         r.sleep();
     }
