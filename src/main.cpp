@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     VectorXd input(total_data);
     VectorXd output(total_data);
 
-    double A = 1, B = 3, C = 3, D = 1;
+    double A = -1, B = 0, C = 1, D = 1;
     //load observation data
 
     raw_path.clear();
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     {
         //generate a random variable [-10 10]
         double x = i * 0.4 - 2.0;
-        double deltaY = 1.0 * (random() % 1000) / 1000.0 - 0.5;
+        double deltaY = 2.0 * (random() % 1000) / 1000.0 - 1.0;
         // double y = A * x * x * x + B * x * x + C * x + D;
         double y = A * x * x * x + B * x * x + C * x + D + deltaY;
 
@@ -111,7 +111,7 @@ int main(int argc, char **argv)
         //generate a random variable [-10 10]
         double x = i * 0.1;
         // double y = A * x * x * x + B * x * x + C * x + D;
-        double y = params_dogLeg[0] * x * x * x + params_dogLeg[1] * x * x + params_dogLeg[2] * x + params_dogLeg[3];
+        double y = params_levenMar[0] * x * x * x + params_levenMar[1] * x * x + params_levenMar[2] * x + params_levenMar[3];
 
         final_path.push_back(std::make_pair(x, y));
     }

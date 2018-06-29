@@ -1,28 +1,33 @@
 #include "reflect.h"
 #include "untest.h"
 
+
 int main(int argc, char *argv[])
 {
-  CBase *base = CBase::Create("CBase");
+  vector<shared_ptr<CBase> > storage;
+  shared_ptr<CBase> base = CBase::Create("CBase");
   if (base)
   {
-    base->Print();
+    storage.push_back(base);
   }
-  CBase *base2 = CBase::Create("CDerived");
+  shared_ptr<CBase> base2 = CBase::Create("CDerived");
   if (base2)
   {
-    base2->Print();
+    storage.push_back(base2);
   }
-  CBase *base3 = CBase::Create("ExCDerived");
+  shared_ptr<CBase> base3 = CBase::Create("ExCDerived");
   if (base3)
   {
-    base3->Print();
+    storage.push_back(base3);
   }
-
-  CBase *base4 = CBase::Create("yinjian");
+  shared_ptr<CBase> base4 = CBase::Create("yinjian");
   if (base4)
   {
-    base4->Print();
+    storage.push_back(base4);
+  }
+  for (auto a : storage)
+  {
+    a->Print();
   }
   return 0;
 }

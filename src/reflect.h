@@ -1,7 +1,7 @@
 #ifndef _REFLECT_
 #define _REFLECT_
 
-
+#include <memory>
 #include <vector>
 #include <cmath>
 #include <string>
@@ -13,12 +13,12 @@ using namespace std;
 #define DECLEAR_DYNCRT_BASE(CBase)                                                      \
 public:                                                                                 \
   typedef CBase *(*ClassGen)();                  /* 声明函数指针*/                \
-  static CBase *Create(const string &class_name) /* 工厂函数 */                     \
+  static shared_ptr<CBase> Create(const string &class_name) /* 工厂函数 */                     \
   {                                                                                     \
     std::map<string, ClassGen>::iterator iter = m_class_set.find(class_name);           \
     if (m_class_set.end() != iter)                                                      \
     {                                                                                   \
-      return ((*iter).second)();                                                        \
+      return shared_ptr<CBase>(((*iter).second)());                                                        \
     }                                                                                   \
     return NULL;                                                                        \
   }                                                                                     \
