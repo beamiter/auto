@@ -218,3 +218,7 @@ target_link_libraries(main ${catkin_LIBRARIES})
 
 add_executable(g2o src/g2oOptimize.cpp)
 target_link_libraries(g2o ${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})
+
+
+add_executable(reflect src/reflect.cpp)
+target_link_libraries(reflect ${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})
