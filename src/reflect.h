@@ -86,6 +86,11 @@ public:
   virtual void Print()
   {
     cout << "This is derived!" << endl;
+    xxx();
+  }
+  void xxx()
+  {
+    cout << "are you s b?" << endl;
   }
 };
 IMPLEMENT_DYNCRT_CLASS(CDerived)

@@ -5,7 +5,7 @@
 #include "reflect.h"
 
 //声明再继承类
-class yinjian : public CDerived
+class yinjian : public ExCDerived
 {
   DECLEAR_DYNCRT_CLASS(yinjian, CBase)
 public:
